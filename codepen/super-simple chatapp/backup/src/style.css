@@ -1,0 +1,194 @@
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+.i {
+  transition: transform .2s; /* Animation */
+
+  margin: 0 auto;
+}
+
+.i:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #e7ba52; 
+  background: url("https://cdn.wallpapersafari.com/33/46/ghZpnP.jpg");
+}
+#box {
+  border: 1px solid #efefef;
+  width: 500px;
+  height: 100px;
+  overflow: scroll;
+  margin-bottom: 20px;
+}
+
+.avatar {
+	width: 80px;
+	height: 80px;
+  border-radius: 40px; /* половина ширины и высоты */
+  margin: 10px;
+  
+}
+
+
+
+ i {
+  font-size: 75px;
+}
+
+
+button {
+    	width: 60px;
+	height: 20px;  
+}
+
+
+#info , #all {
+    margin-top: 30px;
+    margin-left: 40%;
+}
+
+.i {
+     margin-left: 45%;
+}
+#users {
+    margin-left: -30%; 
+}
+
+.i {
+    width: 80px;
+    background-color: white;
+}
+
+#t {
+    margin-left: 10%;
+}
+
+#y {
+    margin-left: -30%;
+}
+
+input {
+    border-radius: 40px;
+  	width: 80px;
+	height: 20px;  
+}
+/* Font Icons */
+
+[class^="face"],
+[class*=" face"] {
+  font-family: 'Material Icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.face-1:before {
+  content: "face";
+}
+
+.face-2:before {
+  content: "favorite";
+}
+
+.face-3:before {
+  content: "adb";
+}
+
+.face-4:before {
+  content: "cake";
+}
+
+.face-5:before {
+  content: "whatshot";
+}
+
+.face-6:before {
+  content: "invert_colors";
+}
+
+.face-7:before {
+  content: "stars";
+}
+
+.face-8:before {
+  content: "mood_bad";
+}
+
+.face-9:before {
+  content: "mood";
+}
+
+.face-10:before {
+  content: "star";
+}
+
+.face-11:before {
+  content: "directions_bike";
+}
+
+.face-12:before {
+  content: "star_half";
+}
+
+.face-13:before {
+  content: "school";
+}
+
+.color-1 {
+  color: #393b79;
+}
+
+.color-2 {
+  color: #6b6ecf;
+}
+
+.color-3 {
+  color: #637939;
+}
+
+.color-4 {
+  color: #b5cf6b;
+}
+
+.color-5 {
+  color: #8c6d31;
+}
+
+.color-6 {
+  color: #e7ba52;
+}
+
+.color-7 {
+  color: #843c39;
+}
+
+.color-8 {
+  color: #d6616b;
+}
+
+.color-9 {
+  color: #7b4173;
+}
+
+.color-10 {
+  color: #ce6dbd;
+}

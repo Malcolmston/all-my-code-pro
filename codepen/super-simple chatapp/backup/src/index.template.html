@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Super Simple Chat App</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class='i'>
+    <i class="avatar" class="face12"></i>
+</div>
+
+<div id="info">
+<input id='Name'></input>
+ <button id="setname" onclick="set_name(document.getElementById('Name').value )">Name</button>
+</div>
+
+<div id="all">
+<br>
+  <div id="inputs">
+ <input id="login" readonly></input> 
+<button id="host"  onclick="host()">host</button>
+<br>
+<input id="joins" required></input> <button id="join" onclick="join(document.getElementById('joins').value )" >join</button>
+</div>
+
+  <p class="presence"></p>
+
+
+<div id="users">
+
+
+ <a style="font-size:5vw;" id='t'> Chat Output </a> 
+<div id="box" ></div>
+
+</div>
+
+ <a style="font-size:5vw;" id='y'> Enter Chat and press enter </a> 
+
+
+<div><input id="input" placeholder="type message here" />
+</div>
+
+</div>
+
+
+
+
+
+
+<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- partial -->
+  <script src='https://cdn.pubnub.com/pubnub-3.7.13.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+.solution {
+	text-align: end;
+	margin: 0.7em 1.25em;
+	padding: 0.5em 1em;
+	background-color: #f2f2f2;
+	font-size: 2em;
+	font-family: "Lucida Console", monospace;
+	border-radius: 0.1em 0;
+}
+
+.container {
+	max-width: 64em;
+	margin: 0 auto;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.action {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	color: #7c7c7c;
+}
+
+body {
+	padding: 25px;
+	background-color: white;
+	color: black;
+	font-size: 25px;
+}
+button {
+	padding: 25px;
+	background-color: white;
+	color: black;
+	font-size: 10px;
+
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+font-family: "English";
+}

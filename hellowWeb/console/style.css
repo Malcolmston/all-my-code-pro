@@ -1,0 +1,41 @@
+#console{
+    font-family: Consolas;
+    font-size: 20;
+}
+
+.log{
+    background-color: gray;
+    padding-right: 100%;
+    padding-bottom: 2%;
+    
+}
+
+.error{
+    background-color: red;
+    padding-right: 100%;
+    padding-bottom: 2%;
+}
+
+.info{
+    background-color: lime;
+    padding-right: 100%;
+    padding-bottom: 2%;
+}
+
+.warn{
+    background-color: orange;
+    padding-right: 100%;
+    padding-bottom: 2%;
+}
+
+.time{
+    background-color: white;
+    padding-right: 100%;
+    padding-bottom: 2%;
+}
+
+.pad{
+    background-color: black;
+    padding-right: 100%;
+    padding-bottom: 1px;
+}

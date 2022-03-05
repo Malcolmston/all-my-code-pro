@@ -1,0 +1,23 @@
+
+.word {
+	text-align: end;
+	margin: 0.7em 1.25em;
+	padding: 0.5em 1em;
+	background-color: #f2f2f2;
+	font-size: 1em;
+	font-family: "Lucida Console", monospace;
+	border-radius: 0.1em 0;
+}
+
+
+
+.word {
+  width: 170px;
+  margin: auto;
+  border: 3px solid #ffffff;
+}
+.button {
+  width: 200px;
+  margin: auto;
+ 
+}

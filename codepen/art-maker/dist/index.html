@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - art maker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script src="https://threejs.org/build/three.min.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
+
+
+
+<br>
+<br>
+<button id="offa">setting</button>
+
+<div id="myDIVa">
+  <div id="console"></div>
+</div>
+
+<button id="offb">setting</button>
+
+<div id="myDIVb">
+  <div id="setting">
+    <div class="popup" onclick="myFunction()">?
+      <span class="popuptext" id="myPopup">any setting will update automaticly once you load a new photo.</span>
+    </div>
+
+    <h3>line types</h3>
+
+    <input type="checkbox" id="only line" value="Bike">
+    <label for="only line">use no lines</label>
+    <br>
+
+    <input type="checkbox" id="only bezier curve" value="Bike">
+    <label for="only bezier curve">use no bezier curve</label>
+    <br>
+    <input type="checkbox" id="only quadratic curve" value="Bike">
+    <label for="only quadratic curve">use no quadratic curve</label>
+    <br>
+    <input type="checkbox" id="only dot" value="Bike">
+    <label for="only dot">use no dot</label>
+    <br>
+    <input type="checkbox" id="only shape" value="Bike">
+    <label for="only shape">use no shape</label>
+
+    <h3>setting types</h3>
+
+    <input type="checkbox" id="black/white" value="Bike">
+    <label for="black/white">only use black and white</label>
+    <br>
+
+    <h4>checked type</h4>
+    <div class="switch-toggle ">
+
+      <input id="on" name="state-d" type="radio" checked="" />
+      <label for="on" onclick="">not dashed</label>
+
+      <input id="na" name="state-d" type="radio" checked="checked" />
+      <label for="na" class="disabled" onclick="">nither</label>
+
+      <input id="off" name="state-d" type="radio" />
+      <label for="off" onclick="">dashed</label>
+
+    </div>
+
+    <br>
+    <br>
+
+    <h4>line cap</h4>
+    <div class="switch-toggle">
+
+      <input id="on1" name="state-a" type="radio" />
+      <label for="on1" onclick="">round</label>
+
+      <input id="na1" name="state-a" type="radio" />
+      <label for="na1" class="disabled" onclick="">butt</label>
+
+      <input id="off1" name="state-a" type="radio" />
+      <label for="off1" onclick="">square</label>
+
+      <input id="none1" name="state-a" type="radio" checked="checked" />
+      <label for="none1" class="disabled" onclick="">any</label>
+
+    </div>
+
+    <br>
+    <br>
+    <h4>line width</h4>
+
+    <div class="slidecontainer">
+      <input type="range" min="0" max="7" value="0" class="slider" id="myRange">
+      <p>Value: <span id="demo"></span></p>
+    </div>
+  </div>
+</div>
+
+<button id="save">save</button>
+<button id="newp">load new photo</button>
+
+<div id="wrapper">
+  <canvas id="myCanvas"></canvas>
+  <div id="3Ddata"></div>
+
+</div>
+
+
+
+<div id="data">
+  <br>
+  By: <signiture contenteditable="true">malcolm s</signiture>
+  <br>
+  Peice Name:<name contenteditable="true"></name>
+  <br>
+  Created: <date contenteditable="false">
+  </date>
+</div>
+<!-- partial -->
+  <script src='https://threejs.org/build/three.min.js'></script>
+<script src='https://threejs.org/examples/js/controls/OrbitControls.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

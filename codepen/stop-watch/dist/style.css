@@ -1,0 +1,34 @@
+*{
+  text-align: center;
+}
+
+h1 {
+  font-size: 100px;
+}
+
+button{
+  width: 100px;
+  height: 50px;
+}
+
+.none {
+   border-color: rgba(0, 0, 0,0);
+}
+
+.start {
+  background: rgba(162, 255, 0,0.2);
+  border-color: rgba(0, 0, 0,0);
+}
+
+.end {
+ 
+  background: rgba(255, 0, 149,0.2);
+  border-color: rgba(0, 0, 0,0);
+}
+
+#laps {
+  height: 140px;
+  width: 400px; 
+  overflow-y: scroll; 
+  margin-left: 32.5%;
+}

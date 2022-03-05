@@ -1,0 +1,11 @@
+div.number {
+	text-align: center;
+	margin: 0.7em 1.25em;
+	padding: 0.5em 1em;
+	background-color: #f2f2f2;
+	font-size: 2em;
+	font-family: "Lucida Console", monospace;
+	border-radius: 0.1em 0;
+}
+
+

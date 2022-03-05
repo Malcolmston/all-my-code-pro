@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
+
+html {
+  text-align: center;
+}
+
+signiture {
+  font-family: "Cedarville Cursive", cursive;
+}
+
+
+:focus {
+  outline: none; /* no outline - for most browsers */
+  box-shadow: none; /* no box shadow - for some browsers or if you are using Bootstrap */
+}
+
+#console {
+  position: absolute;
+  float: left;
+  width: 15%;
+  height: 100%;
+
+  background-color: rgba(176, 190, 197, 0.4);
+
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  text-overflow: ellipsis;
+}
+
+#wrapper {
+  border: solid 1px black;
+  resize: both;
+  overflow: hidden;
+  margin: auto;
+}
+
+#setting {
+  float: right;
+  width: 15%;
+  height: 100%;
+
+  background-color: rgba(176, 190, 197, 0.4);
+}
+
+#offa{
+ margin-right: 86%;
+}
+
+
+#offb{
+ margin-left: 85%;
+}
+
+.switch-toggle {
+   float: left;
+   background: #242729;
+}
+.switch-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+.switch-toggle input + label {
+  padding: 7px;
+  float:left;
+  color: #fff;
+  cursor: pointer;
+}
+.switch-toggle input:checked + label {
+  background: green;
+}
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+
+#3Ddata {
+  margin: auto;
+  width: 50%;
+}
