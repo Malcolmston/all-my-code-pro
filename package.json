@@ -144,7 +144,7 @@
     "eazy-logger": "^3.1.0",
     "ecc-jsbn": "^0.1.2",
     "ee-first": "^1.1.1",
-    "electron": "^2.0.18",
+    "electron": "^13.6.6",
     "electron-download": "^3.3.0",
     "emoji-regex": "^8.0.0",
     "encodeurl": "^1.0.2",
