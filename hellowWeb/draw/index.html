@@ -1,0 +1,53 @@
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+ <button class="open-button" onclick="openForm()">settings</button>
+
+    <div class="form-container">
+      <div class="form-popup" id="myForm">
+        <h1>settings</h1>
+
+        <a >color</a>
+        <br>
+        <input id='color' type="color">
+        <br>
+         <a >pen size</a>
+        <br>
+        <input id='size' type="number" min='1' max='100'>
+
+        <br>
+        <a >pen end</a>
+        <br>
+        <select name="pens" id="pens">
+  <option value="butt">butt</option>
+  <option value="round">rounded</option>
+  <option value="square">square</option>
+</select>
+        <br>
+        <a >download your drawing</a>
+        <br>
+        <input tyipe='text' id='name' placeholder="file name">
+<br>
+                <select name="file" id="file">
+  <option value="butt">jpg</option>
+  <option value="png">png</option>
+  <option value="jpng">jpng</option>
+</select>
+
+ <button onclick="dwn()">download</button>
+ 
+ <br>
+ <input type="file" onchange='openFile(event)' accept='image/*' id="logo">
+ 
+ <br>
+ 
+ <a id="inserted"></a>
+ <br>
+
+ <br>
+        <button class="btn cancel" onclick="closeForm()">Close</button>
+        </div>
+        </div>
+
+<canvas id="canvas"></canvas>
+

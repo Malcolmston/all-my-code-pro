@@ -1,0 +1,1 @@
+document.getElementById("dot").innerText="Loading...";var dots=0,d=!0;setInterval((function(){d&&dots++,d||dots--,3==dots&&(d=!1),0==dots&&(d=!0),document.getElementById("dot").innerText="Loading"+".".repeat(dots)}),1e3);

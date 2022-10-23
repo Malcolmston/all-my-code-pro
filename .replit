@@ -21,7 +21,7 @@ language = "nodejs"
   [packager.features]
   packageSearch = true
   guessImports = true
-  enabledForHosting = false
+  enabledForHosting = true
 
 [unitTest]
 language = "nodejs"
@@ -65,9 +65,13 @@ support = true
       console = "externalTerminal"
       cwd = "."
       environment = []
-      pauseForSourceMap = false
+      pauseForSourceMap = true
       program = "./index.js"
       request = "launch"
       sourceMaps = true
       stopOnEntry = false
       type = "pwa-node"
+
+[auth]
+pageEnabled = false
+buttonEnabled = false

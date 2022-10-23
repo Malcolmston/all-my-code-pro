@@ -6,30 +6,162 @@ var http = require("http"),
 	slides = require("./html.js"),
 	style = require("./style.js"),
 	app = express(),
+	mime = require('mime-types'),
 	Document = require("html-document"),
-	getHrefContent = require('href-content'),
 	enableDestroy = require('server-destroy'),
+	Database = require("@replit/database"),
+	db = new Database(),
 	document = new Document();
 
-
-app.use(bodyParser.urlencoded({ extended: false }));
-
-
-
-slides.createDiv("slideshow-container");
-
+var dsed = ''
 let dir = __dirname;
-
-
 //Synchronously:
-const folders = fs.readdirSync(dir).filter(x => !(x.includes(".")) && (x != "node_modules") )
-
+const folders = fs.readdirSync(dir).filter(x => !(x.includes(".")) && (x != "node_modules"))
 
 var amount = [];
 let code = [];
 let html = [];
+let s = logFiles("codepen")
 
-async function getFileData(filePath) {
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+slides.createDiv("slideshow-container");
+
+
+Object.prototype.in = function() {
+	for (var i = 0; i < arguments.length; i++)
+		if (arguments[i] == this) return true;
+	return false;
+}
+
+function isCode(file) {
+	try {
+		return mime.contentType(file).split("/")[1].toString().split(";")[0].in("javascript", 'typescript', 'appscript')
+	} catch (e) {
+
+	}
+}
+
+function isStyle(file) {
+	try {
+		return mime.contentType(file).split("/")[1].toString().split(";")[0].in("css", 'scss', 'style')
+	} catch (e) {
+
+	}
+}
+
+async function makeFileMass(filePath) {
+	//var filePath = "planet"//"planet/index.html";
+	var html = []
+
+	//resetFile("file.html")
+
+	fs.readdirSync(filePath).forEach(function(file) {
+		if (file.includes(".")) {
+			if (isCode(file)) {
+				getUrl(filePath + "/" + file).then(function(x) {
+					let r = `type="${mime.lookup(file)}"`
+					let a = `<script ${r}> ${x}</script> \n`
+					html.push(a)
+				})
+
+			}
+			if (isStyle(file)) {
+				getUrl(filePath + "/" + file).then(function(x) {
+					let r = `type="${mime.lookup(file)}"`
+					let a = `<style ${r}> ${x}</style> \n`
+					html.push(a)
+					// addFile("file.html",a )
+				})
+			}
+			if (file.includes(".html")) {
+				getUrl(filePath + "/" + file).then(function(x) {
+					html.push(x)
+					// addFile("file.html",x )
+				})
+			}
+
+
+		}
+	});
+
+
+	return html
+
+
+}
+
+async function makeDataMass(filePath) {
+	var html = []
+
+	fs.readdirSync(filePath).forEach(function(file) {
+		if (file.includes(".")) {
+			if (isCode(file)) {
+				html.push(getFileData(filePath + "/" + file, "script"))
+			}
+			if (isStyle(file)) {
+				html.push(getFileData(filePath + "/" + file, "style"))
+			}
+			if (file.includes(".html")) {
+				html.push(getFileData(filePath + "/" + file, "html"))
+			}
+
+
+		}
+	});
+
+	var a;
+	var b;
+	var c;
+
+	return Promise.all(html).then((values) => {
+		a = values.filter(x => x.file == "script")
+		b = values.filter(x => x.file == "style")
+		c = values.filter(x => x.file == "html")
+
+
+		return {
+			html: {
+				"fileSize is": c.map(x => Number(x["fileSize is"].split(" ")[0])).reduce((partialSum, a) => partialSum + a, 0) + " bytes",
+				"dateChanges is": null,
+				"creationDate is": null,
+				"canRWE is": true,
+				"extension is": null,
+				"fileName is": null,
+				"fileNameOnly is": null,
+				"fileDir is": null
+			},
+			css: {
+				"fileSize is": b.map(x => Number(x["fileSize is"].split(" ")[0])).reduce((partialSum, a) => partialSum + a, 0) + " bytes",
+				"dateChanges is": null,
+				"creationDate is": null,
+				"canRWE is": true,
+				"extension is": null,
+				"fileName is": null,
+				"fileNameOnly is": null,
+				"fileDir is": null
+			},
+			js: {
+				"fileSize is": a.map(x => Number(x["fileSize is"].split(" ")[0])).reduce((partialSum, a) => partialSum + a, 0) + " bytes",
+				"dateChanges is": null,
+				"creationDate is": null,
+				"canRWE is": true,
+				"extension is": null,
+				"fileName is": null,
+				"fileNameOnly is": null,
+				"fileDir is": null
+			}
+		};
+	})
+
+
+
+
+
+}
+
+async function getFileData(filePath, force = false) {
 	let stats = fs.statSync(filePath);
 	//file size
 	let fileSize = stats.size;
@@ -54,17 +186,31 @@ async function getFileData(filePath) {
 
 	//file directory
 	let fileDir = path.dirname(filePath);
+	if (force) {
+		return {
+			"file": force,
+			"fileSize is": fileSize + " bytes",
+			"dateChanges is": dateChanges,
+			"creationDate is": creationDate,
+			"canRWE is": canRWE,
+			"extension is": extension,
+			"fileName is": fileName,
+			"fileNameOnly is": fileNameOnly,
+			"fileDir is": fileDir
+		};
+	} else {
+		return {
+			"fileSize is": fileSize + " bytes",
+			"dateChanges is": dateChanges,
+			"creationDate is": creationDate,
+			"canRWE is": canRWE,
+			"extension is": extension,
+			"fileName is": fileName,
+			"fileNameOnly is": fileNameOnly,
+			"fileDir is": fileDir
+		};
+	}
 
-	return {
-		"fileSize is": fileSize + " bytes",
-		"dateChanges is": dateChanges,
-		"creationDate is": creationDate,
-		"canRWE is": canRWE,
-		"extension is": extension,
-		"fileName is": fileName,
-		"fileNameOnly is": fileNameOnly,
-		"fileDir is": fileDir
-	};
 }
 
 async function getUrl(filePath) {
@@ -76,28 +222,54 @@ async function getUrl(filePath) {
 	}
 }
 
-async function logFiles(dir) {
+function logFiles(dir) {
 	return fs.readdirSync(dir);
 }
 
 async function Getfile(caller, file) {
-	let a = await getUrl(`${caller}/${file}/index.html`);
-	let b = await getUrl(`${caller}/${file}/style.css`);
-	let c = await getUrl(`${caller}/${file}/script.js`);
+	var files;
+	try {
+		files = logFiles(`${caller}/${file}`);
+	} catch (e) {
+		file = file.replace('/dist', '')
+		files = logFiles(`${caller}/${file.replace('/dist', '')}`);
+	}
 
-	let d = await getFileData(`${caller}/${file}/index.html`);
-	let e = await getFileData(`${caller}/${file}/style.css`);
-	let f = await getFileData(`${caller}/${file}/script.js`);
-	let pro = {
-		html: d,
-		css: e,
-		js: f
-	};
 
-	return {
-		html: `<style>${b}</style>${a}<script>${c}</script>`,
-		data: pro
-	};
+	if (files.length == 3) {
+		let a = await getUrl(`${caller}/${file}/index.html`);
+		let b = await getUrl(`${caller}/${file}/style.css`);
+		let c = await getUrl(`${caller}/${file}/script.js`);
+
+		let d = await getFileData(`${caller}/${file}/index.html`);
+		let e = await getFileData(`${caller}/${file}/style.css`);
+		let f = await getFileData(`${caller}/${file}/script.js`);
+
+		let pro = {
+			html: d,
+			css: e,
+			js: f
+		};
+
+		return {
+			html: `<style>${b}</style>${a}<script>${c}</script>`,
+			data: pro
+		};
+	} else {
+		var c = await makeFileMass(`${caller}/${file}`)
+
+		let pro = await makeDataMass(`${caller}/${file}`)
+
+		return {
+			html: c.join("\n"),
+			data: pro
+		};
+
+		// return ( c.join("\n"))
+
+	}
+
+
 }
 
 async function dataFind(x, thing) {
@@ -113,7 +285,7 @@ async function dataFind(x, thing) {
 }
 
 async function getFileTolog(dir) {
-	var cart = await logFiles(dir);
+	var cart = logFiles(dir);
 
 	return cart.map(async function(a) {
 		let x = await dataFind(a, dir);
@@ -148,11 +320,13 @@ async function getGetFileTolog(dir) {
 async function getHTMLAsPage(dir) {
 	let html = [];
 	let a = await getFileTolog(dir);
-
+	
 	return a.map(async function(e) {
 		var b = await e;
 		//var c = await data.getFileData('html.js')
 
+		//alert(b)
+		
 		html.push(
 			slides.iframe({
 				id: "code",
@@ -161,38 +335,37 @@ async function getHTMLAsPage(dir) {
 				fileData: JSON.stringify(b["data"]),
 			}).outerHTML
 		);
-		/*
-		slides.button({
-			id: "butt",
-			
-		})
-			*/
+
+	
 		return html;
 	});
 }
 
 
-async function log(file) {
-	console.log('test')
+
+function addtoFile(file, text) {
+
+	//Asynchronously:
+	fs.writeFile(file,
+		text, (err) => {
+			if (err)
+				alert("Error:", err);
+			else
+				alert('Text written to file!');
+		});
 }
 
-function addtoFile( file, text){
+async function datas(file, to, html = false, data, c, d) {	
+	if (html) {
+		addtoFile(to, file)
+	} else {
+		db.set("last", file).then(() => { });
 
-//Asynchronously:
-fs.writeFile(file, 
-    text, (err) => {
-    if (err) 
-        console.log("Error:", err);
-    else
-            console.log('Text written to file!');
-});
-}
-
-async function datas(file) {	
-	getHTMLAsPage(file).then(function(a) {
-		a[0].then(function(aa) {
-
-						addtoFile('index.html',`
+		//alert( file )
+		
+		getHTMLAsPage(file).then(function(a) {
+			a[0].then(function(aa) {
+				addtoFile('index.html', `
   <div class="header">
     <h1>My Website</h1>
     <p>A website created by me.</p>
@@ -200,109 +373,54 @@ async function datas(file) {
 
   <div class="navbar">
 
-${
-folders.map(function(x){
-return `
+${folders.map(function(x) {
+					return `
 <form action="/api/data" method="POST" id="${x.toString()}" class="page">
-<input readonly  type="text" id="data" value="${x.toString()}" name="data" style="width:${x.toString().length*10}px" class="head"></input>
+<input  readonly  type="text" id="data" value="${x.toString()}" name="data" style="width:${x.toString().length * 10}px" class="head"></input>
 </form> 
-
 `
-	
 }).join("")
 }
 
+<form action="/api/page" method="POST" id="setting" class="page"><input  readonly  type="text" id="data" value="setting" name="data" style="width:${("setting").toString().length * 10}px" class="head"></input>
 
   </div>
 
-
-
-${style.html(aa, '1')}
-
+${style.html(aa, '1', data, c, d)}
 
 <script>
 var elements = document.getElementsByClassName("head");
 var formss = document.getElementsByClassName("page");
 
-// class = page
-
   for (var i = 0, len = formss.length; i < len; i++) {
     formss [i].addEventListener("click", function(e ) {
 
-
 		document.getElementById( this.id ).submit();
+
+setTimeout(function(params) {
+	location.reload()
+}, 1000);
+
 });
   }
 </script>
-
 `)
-					
 
+
+			});
 		});
-	});
-	
+	}
+
 }
+
 
 function removeFile(filePath) {
 	fs.unlink(filePath, (err) => {
-		if (err) console.log("Error:", err);
-		else console.log("Deleted!");
+		if (err) alert("Error:", err);
+		else alert("Deleted!");
 	});
 }
 
-function hellowWeb(file) {
-	getUrl(`hellowWeb/${file}/index.html`).then(function(a) {
-		getUrl(`hellowWeb/${file}/style.css`).then(function(b) {
-			getUrl(`hellowWeb/${file}/script.js`).then(function(c) {
-				app.get("/", function(req, res) {
-					res.write(
-						`<style>${b}</style>
-${a}
-<script>${c}</script>
-`
-					);
-				});
-				app.listen(8081);
-			});
-		});
-	});
-}
-
-function repel(file) {
-	getUrl(`repel/${file}/index.html`).then(function(a) {
-		getUrl(`repel/${file}/style.css`).then(function(b) {
-			getUrl(`repel/${file}/script.js`).then(function(c) {
-				app.get("/", function(req, res) {
-					res.write(
-						`<style>${b}</style>
-${a}
-<script>${c}</script>
-`
-					);
-				});
-				app.listen(8080);
-			});
-		});
-	});
-}
-
-function codepen(file) {
-	getUrl(`codepen/${file}/dist/index.html`).then(function(a) {
-		getUrl(`codepen/${file}/dist/style.css`).then(function(b) {
-			getUrl(`codepen/${file}/dist/script.js`).then(function(c) {
-				app.get("/", function(req, res) {
-					res.write(
-						`<style>${b}</style>
-${a}
-<script>${c}</script>
-`
-					);
-				});
-				app.listen(8080);
-			});
-		});
-	});
-}
 
 function file(file) {
 	getUrl(`${file}`).then(function(a) {
@@ -313,33 +431,107 @@ function file(file) {
 	});
 }
 
-	
-datas("codepen")
 
-	app.get("/", (request, response) =>
-  response.sendFile(`${__dirname}/index.html`)
-);
-const PORT = 3000
+datas("codepen", false, false, 'all')
 
-//app.listen(3000, () => console.info("Application running on port 3000"));
+
+app.get("/", function(request, response) {
+	response.sendFile(`${__dirname}/index.html`)
+
+});
+
+
+var PORT = 3000
+
 var server = http.createServer(app)
-
 server.listen(PORT);
- 
-// enhance with a 'destroy' function
-enableDestroy(server);
 
-app.post("/api/data", (request, response) => {
-  const postBody = request; //.body.data;
- datas( postBody.body.data )
+app.post("/api/data", async function(request, response) {
+	const postBody = request; //.body.data;
+	let b = await db.get("settings")
+	let a = await db.get("land")
 
-		app.get("/", (request, response) =>
-  response.sendFile(`${__dirname}/index.html`)
-);
 
-	server.destroy();
+	//alert( a )
+	datas(postBody.body.data, false, false, 'all')//a, b[0], b[1])
+
+	server.close();
+
+	app.get("/", function(request, response) {
+		response.sendFile(`${__dirname}/index.html`)
+
+	});
+
+	server = http.createServer(app)
+	enableDestroy(server);
 
 	server.listen(PORT);
 
-	
 });
+
+app.post("/api/done", (request, response) => {
+	const postBody = request; //.body.data;
+	let a = (postBody.body.data).split(",")
+
+	let b = [a[0].replace(" rows ", ' ').replace(" columns ", ' ').split(" ")[0], a[0].replace(" rows ", ' ').replace(" columns ", ' ').split(" ")[1]]
+
+	db.get("last").then(async function(e) {
+		db.set("settings", b)
+
+
+		db.set("land", ((typeof b != "string") ? b[0] : a).trim())
+
+		//db.set("land", a )
+		b = await db.get("settings")
+
+		if (a[1].includes("_3D")) {
+			datas(e, false, false, b[0])
+		} else {
+			datas(e, false, false, a[1], b[0], b[1])
+		}
+		server.close();
+
+		app.get("/", function(request, response) {
+			response.sendFile(`${__dirname}/index.html`)
+
+		});
+
+		server = http.createServer(app)
+		enableDestroy(server);
+
+		server.listen(PORT);
+	});
+
+
+
+});
+
+app.post("/api/page", (request, response) => {
+
+	const postBody = request; //.body.data;
+
+	fs.readFile('page.html',
+		'utf8', function(err, text) {
+			if (err)
+				alert("Error:", err);
+			else
+				datas(text, 'index.html', true)
+		});
+
+
+	server.close();
+
+	app.get("/", function(request, response) {
+		response.sendFile(`${__dirname}/page.html`)
+
+	});
+
+	server = http.createServer(app)
+	enableDestroy(server);
+
+	server.listen(PORT);
+
+
+});
+
+

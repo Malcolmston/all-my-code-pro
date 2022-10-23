@@ -1,0 +1,345 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.12.1/css/all.css">
+
+
+<div style="text-align:center">
+  <form action="/api/done" method="POST">
+  <span class="dot red"> <i class="fad fa-times"></i> </span>
+     </form>
+   <form action="/api/min" method="POST">
+  <span class="dot yellow">  <i class="fad fa-circle"></i></span>
+     </form>
+  <form action="/api/open" method="POST">
+  <span class="dot green"> <i class="fad fa-plus"></i></span>
+    </form>
+</div>
+
+<div class="container">
+
+  <div class="leftbox">
+    <nav>
+      <a id="one" class="active"> <i class="fa fa-1"></i> </a>
+      <a id="all" ><i class="fa fa-globe"></i></a>
+      <a id="_3D"><i class="fa fa-cube"></i></a>
+      <a id="settings"><i class="fa fa-cog"></i></a>
+    </nav>
+  </div>
+  
+  <div class="rightbox">
+    
+
+    <div class="one noshow">
+     
+    </div>
+
+    <div class="all noshow">
+       <input type="range" min="1" max="8" id="row" class="slider" value="1"></input>
+  <br>
+  <input type="range" min="1" max="8" class="slider" id="col" value="1"></input>
+  
+  <h1 id="total">1 rows 1 columns</h1>
+    </div>
+
+    <div class="_3D noshow">
+     <input type="radio" name="type" id="_1" checked></input>
+ <input type="radio" name="type" id="_2"></input>
+<br>
+ <h1 id="p">window vue</h1>
+    </div>
+	  
+ <div class="settings noshow">
+     
+    </div>
+    
+  </div>
+</div>
+
+
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto");
+
+@import url("https://use.fontawesome.com/releases/v6.0.0/css/all.css");
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+}
+form {
+  display: inline-block;
+}
+
+
+i {
+padding-top:5px;
+}
+
+
+.green {
+  background-color: #00ca56;
+}
+.yellow {
+  background-color: #ffbd4c;
+}
+.red {
+  background-color: #ff5c5c;
+}
+
+.none {
+  background-color:#CFD8DC;
+    content: "";
+
+}
+
+
+* {
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(to right, #329085, #7ed386);
+}
+
+.container {
+  background: linear-gradient(-45deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.1));
+  width: 540px;
+  height: 420px;
+  position: relative;
+  margin: auto auto;
+  margin-top: 5%;
+  border-radius: 5px;
+  box-shadow: 2px 4px 6px rgba(55, 52, 73, 0.4), inset -2px -2px 4px white;
+}
+
+.leftbox {
+  background: rgba(126, 211, 134, 0.6);
+  float: left;
+  position: absolute;
+  width: 15%;
+  height: 105%;
+  border: 1px solid rgba(126, 211, 134, 0.45);
+  border-radius: 3px;
+  box-shadow: 2px 4px 6px rgba(55, 52, 73, 0.4), inset -2px -2px 4px rgba(232, 247, 234, 0.7);
+  top: -2.45%;
+  left: 5%;
+}
+.leftbox nav .active {
+  color: #2b7d74;
+}
+.leftbox nav a {
+  color: #f2f2f2;
+  font-size: 1.45em;
+  display: block;
+  padding: 30px;
+  align-items: center;
+  text-align: center;
+  transition: all 0.4s ease-in-out;
+}
+.leftbox nav a:hover {
+  color: #2b7d74;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.rightbox {
+  float: right;
+  padding: 10px 20px;
+  width: 70%;
+}
+.rightbox .noshow {
+  display: none;
+}
+.rightbox .profile, .rightbox .one, .rightbox .all, .rightbox ._3D, .rightbox .settings {
+  transition: opacity 0.5s ease-in;
+  position: absolute;
+  width: 70%;
+}
+.rightbox .profile h1, .rightbox .one h1, .rightbox .all h1, .rightbox ._3D h1, .rightbox .settings h1 {
+  font-family: "Montserrat", sans-serif;
+  color: #3caf47;
+  font-size: 1.2em;
+  margin-top: 40px;
+  margin-bottom: 35px;
+}
+.rightbox .profile h2, .rightbox .one h2, .rightbox .all h2, .rightbox ._3D h2, .rightbox .settings h2 {
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  color: #515151;
+  font-size: 0.6em;
+  letter-spacing: 1px;
+  width: 80%;
+}
+.rightbox .profile p, .rightbox .one p, .rightbox .all p, .rightbox ._3D p, .rightbox .settings p {
+  width: 90%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.65em;
+  letter-spacing: 1px;
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(to right, #3fb6a8, rgba(164, 224, 170, 0.9)) 1 0%;
+  border-top: none;
+  padding: 7px 0;
+  color: white;
+}
+.rightbox .profile p input, .rightbox .one p input, .rightbox .all p input, .rightbox ._3D p input, .rightbox .settings p input {
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.12em;
+  background: none;
+  color: #FFFFFF;
+}
+.rightbox .profile p input:focus, .rightbox .one p input:focus, .rightbox .all p input:focus, .rightbox ._3D p input:focus, .rightbox .settings p input:focus {
+  outline: none;
+}
+.rightbox .profile p ::placeholder, .rightbox .one p ::placeholder, .rightbox .all p ::placeholder, .rightbox ._3D p ::placeholder, .rightbox .settings p ::placeholder {
+  color: #FFFFFF;
+}
+.rightbox .profile button, .rightbox .one button, .rightbox .all button, .rightbox ._3D button, .rightbox .settings button {
+  float: right;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-size: 10px;
+  padding: 1px;
+  border: none;
+  color: #256a62;
+  background: none;
+}
+.rightbox .profile button:hover, .rightbox .one button:hover, .rightbox .all button:hover, .rightbox ._3D button:hover, .rightbox .settings button:hover {
+  font-weight: 900;
+}
+
+#CTA {
+  position: absolute;
+  float: right;
+  padding: 0px 15px;
+  transform: rotate(-90deg);
+  border-radius: 3px;
+  border: 1px solid #7ed386;
+  background: rgba(126, 211, 134, 0.65);
+  right: -4.44%;
+  bottom: 37%;
+  transition: all 0.5s ease-in-out;
+  box-shadow: 2px 0px 4px rgba(55, 52, 73, 0.4), inset 1px -2px 4px rgba(232, 247, 234, 0.7);
+  cursor: pointer;
+  color: #FFFFFF;
+}
+#CTA h1 {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.9em;
+}
+#CTA:hover {
+  color: #f8fcfc;
+  transform: scale(1.1);
+  padding: 1px 18px;
+  background: rgba(126, 211, 134, 0.9);
+  box-shadow: 2px 4px 10px rgba(55, 52, 73, 0.4), inset -1px -1px 4px rgba(255, 255, 255, 0.7);
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  text-align: right;
+  font-size: 0.6em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: "Roboto", sans-serif;
+  color: #FFFFFF;
+}
+footer p {
+  border: none;
+  padding: 0;
+}
+footer p strong {
+  font-size: 2em;
+  text-decoration: none;
+}
+footer p strong:hover {
+  color: #cd6b74;
+  transition: all 0.4s ease-in-out;
+  font-weight: 1500;
+  font-size: 4em;
+}
+footer .julie {
+  font-size: 0.5em;
+}
+footer a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.4s ease-in-out;
+}
+footer a:hover {
+  color: #D37E86;
+  font-weight: 900;
+  font-size: 1.5em;
+}
+  </style>
+
+<script>
+   Array.prototype.last = function(){
+        return this[this.length - 1];
+    };
+  /*active button class onclick*/
+$('nav a').click(function(e) {
+  e.preventDefault();
+  $('nav a').removeClass('active');
+  $(this).addClass('active');
+  if(this.id === !'one'){
+    $('.one').addClass('noshow');
+  }
+  else if(this.id === 'one') {
+    $('.one').removeClass('noshow');
+    $('.rightbox').children().not('.one').addClass('noshow');
+  }
+  else if(this.id === 'all') {
+    $('.all').removeClass('noshow');
+    $('.rightbox').children().not('.all').addClass('noshow');
+  }
+    else if(this.id === '_3D') {
+    $('._3D').removeClass('noshow');
+    $('.rightbox').children().not('._3D').addClass('noshow');
+  }
+  else if(this.id === 'settings') {
+    $('.settings').removeClass('noshow');
+    $('.rightbox').children().not('.settings').addClass('noshow');
+  }
+});
+
+$(".slider").change(function(){
+  $("#total").text( `${$("#row").val()} row\s ${$("#col").val()} column\s` )
+})
+
+$(`input[type="radio"]`).click(function(e){
+  let r = Number(e.target.id.replace("_",""))
+  
+  if( r == 1){
+    $("#p").text("window vue")
+  }
+   if( r == 2){
+    $("#p").text("cube vue")
+  }
+  
+ //$("#p").text(  )
+})
+
+
+
+$("form").on('click',function(e){
+  
+let a =  ([...$($( "."+$($(".active")[0]).attr("id") )[0]).children()].map(function(x){
+  return $(x).val() || $(x).text()
+})).last() + ","+ $($(".active")[0]).attr("id")
+
+  
+   $(this).append(`<input type="hidden" name="data" value="${a}" /> `);
+  this.submit();
+
+  setTimeout(function(params) {
+	location.reload()
+}, 1000);
+
+})
+  </script>
