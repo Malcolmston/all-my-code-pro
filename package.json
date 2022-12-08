@@ -117,7 +117,7 @@
     "data-uri-to-buffer": "^3.0.1",
     "debug": "^2.6.9",
     "decamelize": "^1.2.0",
-    "decode-uri-component": "^0.2.0",
+    "decode-uri-component": "^0.2.1",
     "deep-defaults": "^1.0.5",
     "deep-extend": "^0.6.0",
     "deep-is": "^0.1.4",
